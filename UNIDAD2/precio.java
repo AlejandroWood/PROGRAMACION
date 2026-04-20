@@ -17,11 +17,13 @@ public class precio {
         System.out.print("¿Es festivo? (true/false): ");
         boolean esFestivo = teclado.nextBoolean();
 
-        System.out.print("Día de la semana (lunes/martes/miércoles/jueves/viernes/sábado/domingo): ");
+        System.out.print("Día de la semana (lunes/martes/miercoles/jueves/viernes/sabado/domingo): ");
         String diaSemana = teclado.next().toLowerCase();
 
         System.out.print("Número de entradas: ");
         int numEntradas = teclado.nextInt();
+
+        precioBase = precioBase * numEntradas;
 
         System.out.print("¿Tiene discapacidad acreditada? (true/false): ");
         boolean tieneDiscapacidad = teclado.nextBoolean();
@@ -37,7 +39,7 @@ public class precio {
         } else {
             double descuentoPrincipal = 0.0;
 
-            if (diaSemana == "miércoles" && edad < 25) {
+            if (diaSemana.equals("miercoles") && edad < 25) {
                 descuentoPrincipal = descuentoPrincipal + 0.20;
             }
 
@@ -45,13 +47,12 @@ public class precio {
                 descuentoPrincipal = descuentoPrincipal + 0.15;
             }
 
-            if (numEntradas >= 2 && (diaSemana == "sábado" || diaSemana == "domingo")) {
-                precioBase = precioBase * 0.10;
+            if (numEntradas >= 2 && (diaSemana.equals("sabado") || diaSemana.equals("domingo"))) {
+                precioBase = (precioBase * 0.10) + precioBase;
             }
         double precioConDescuento = precioBase * descuentoPrincipal;
 
-        double totalFinal = precioConDescuento * numEntradas;
-        totalFinal = precioBase - totalFinal;
+        double totalFinal = precioBase - precioConDescuento;
 
         System.out.println("Total a pagar: " + totalFinal + " euros.");
         }
