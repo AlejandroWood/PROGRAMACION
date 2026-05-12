@@ -1,17 +1,25 @@
 package UNIDAD2;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.Scanner;
 
 public class mes {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
         int mesInt = 0;
+        LocalDate fechaActual = LocalDate.now();
+        int mesActual = fechaActual.getMonthValue();
+        int anio = YearMonth.now().getYear();
         String mesString = "";
 
         do {
             System.out.print("Introduce un mes (1 - 12): ");
             mesInt = teclado.nextInt();
         } while (mesInt < 1 || mesInt > 12);
+
+        YearMonth yearMonth = YearMonth.of(anio, mesInt);
+        int dias = yearMonth.lengthOfMonth();
 
         switch (mesInt) {
             case 1:
@@ -52,7 +60,15 @@ public class mes {
                 break;
         }
 
-        System.out.println("Ha seleccionado " + mesString);
+        if (mesActual == mesInt) {
+            System.out.println("¡Estamos en " + mesString + "!");
+        } else if (mesActual > mesInt) {
+            System.out.println(mesString + " fue hace " + (mesActual - mesInt) + " meses.");
+        } else {
+            System.out.println("Faltan " + (mesInt - mesActual) + " meses para " + mesString);
+        }
+        
+        System.out.println(mesString + " tiene " + dias + " días.");
         
         teclado.close();
     }
